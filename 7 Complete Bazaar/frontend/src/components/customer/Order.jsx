@@ -6,14 +6,15 @@ const Order = ({order, products}) => {
 
   return (
     <div key={order._id} className="bg-white p-4 rounded-lg shadow-md">
-      <div className="space-y-4">
-        <div className="border-b pb-2">
-          <p className="text-sm text-gray-500">Order Date: {new Date(order.createdAt).toLocaleDateString()}</p>
-          <p className="font-semibold">Total Amount: ₹{order.totalAmount}</p>
-        </div>
-        
-        <div className="space-y-3">
-          {productsInOrder.map((product) => (
+    <div className="space-y-4">
+      <div className="border-b pb-2">
+        <p className="text-sm text-gray-500">Order Date: {new Date(order.createdAt).toLocaleDateString()}</p>
+        <p className="font-semibold">Total Amount: ₹{order.totalAmount}</p>
+      </div>
+      
+      <div className="space-y-3">
+        {productsInOrder.map((product) => (
+          product && product.imageUrl ? (
             <div key={product._id} className="flex items-center space-x-3">
               <img 
                 src={"http://localhost:3000/" + product.imageUrl} 
@@ -25,10 +26,15 @@ const Order = ({order, products}) => {
                 <p className="text-sm text-gray-600">₹{product.price}</p>
               </div>
             </div>
-          ))}
-        </div>
+          ) : (
+            <div key={product?._id} className="flex items-center space-x-3">
+              <p className="text-sm text-gray-500">Product details are missing</p>
+            </div>
+          )
+        ))}
       </div>
     </div>
+  </div>
   )
 }
 
